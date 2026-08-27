@@ -16,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 //Repository 
 builder.Services.AddTransient<IRepositoryUsuarios, RepositoryUsuarios>();
@@ -97,11 +101,30 @@ else
     app.UseMiddleware<ErrorHandlingMiddleware>();
 }
 
-//Activar soporte a la solicitud de registro con SERILOG
+//Activar soporte a la solicitud de registro
 app.UseSerilogRequestLogging();
 
+// Activar Antiforgery  
+app.UseAntiforgery();
+
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseResponseCompression();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        OnPrepareResponse = context =>
+        {
+            var headers = context.Context.Response.Headers;
+            headers.CacheControl = "public,max-age=31536000";
+        }
+    });
+}
+else
+{
+    app.UseStaticFiles();
+}
 
 app.UseRouting();
 
