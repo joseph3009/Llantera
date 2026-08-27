@@ -11,7 +11,7 @@ public partial class Galeria
 
     public string? Descripcion { get; set; }
 
-    public string Imagen { get; set; } = null!;
+    public byte[] Imagen { get; set; } = null!;
 
     public int Orden { get; set; }
 

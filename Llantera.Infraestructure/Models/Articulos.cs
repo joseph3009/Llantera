@@ -17,7 +17,7 @@ public partial class Articulos
 
     public string Contenido { get; set; } = null!;
 
-    public string? Imagen { get; set; }
+    public byte[]? Imagen { get; set; }
 
     public string? MetaTitulo { get; set; }
 

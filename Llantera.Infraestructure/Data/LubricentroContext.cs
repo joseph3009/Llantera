@@ -30,9 +30,9 @@ public partial class LubricentroContext : DbContext
     {
         modelBuilder.Entity<Articulos>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Articulo__3214EC271F10075E");
+            entity.HasKey(e => e.Id).HasName("PK__Articulo__3214EC27DA458BF4");
 
-            entity.HasIndex(e => e.Slug, "UQ__Articulo__BC7B5FB6B886B473").IsUnique();
+            entity.HasIndex(e => e.Slug, "UQ__Articulo__BC7B5FB698E1A2BE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Activo).HasDefaultValue(true);
@@ -41,7 +41,6 @@ public partial class LubricentroContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Idcategoria).HasColumnName("IDCategoria");
-            entity.Property(e => e.Imagen).HasMaxLength(500);
             entity.Property(e => e.MetaDescripcion).HasMaxLength(500);
             entity.Property(e => e.MetaTitulo).HasMaxLength(250);
             entity.Property(e => e.Resumen).HasMaxLength(500);
@@ -56,9 +55,9 @@ public partial class LubricentroContext : DbContext
 
         modelBuilder.Entity<CategoriasArticulos>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC27825D01AC");
+            entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC27994664EC");
 
-            entity.HasIndex(e => e.Slug, "UQ__Categori__BC7B5FB6AE93F548").IsUnique();
+            entity.HasIndex(e => e.Slug, "UQ__Categori__BC7B5FB60A85BD47").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Activo).HasDefaultValue(true);
@@ -68,7 +67,7 @@ public partial class LubricentroContext : DbContext
 
         modelBuilder.Entity<CategoriasServicios>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC27A0439BEC");
+            entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC272BDBA099");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Activo).HasDefaultValue(true);
@@ -78,7 +77,7 @@ public partial class LubricentroContext : DbContext
 
         modelBuilder.Entity<Galeria>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Galeria__3214EC275E55ED5E");
+            entity.HasKey(e => e.Id).HasName("PK__Galeria__3214EC27D2F1EE44");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Activo).HasDefaultValue(true);
@@ -86,13 +85,12 @@ public partial class LubricentroContext : DbContext
             entity.Property(e => e.FechaRegistro)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.Imagen).HasMaxLength(500);
             entity.Property(e => e.Titulo).HasMaxLength(200);
         });
 
         modelBuilder.Entity<Rol>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Rol__3214EC271AEAF314");
+            entity.HasKey(e => e.Id).HasName("PK__Rol__3214EC27038B21D2");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasMaxLength(100);
@@ -100,9 +98,9 @@ public partial class LubricentroContext : DbContext
 
         modelBuilder.Entity<Servicios>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Servicio__3214EC274464B623");
+            entity.HasKey(e => e.Id).HasName("PK__Servicio__3214EC2709ED77F9");
 
-            entity.HasIndex(e => e.Slug, "UQ__Servicio__BC7B5FB667AB25B6").IsUnique();
+            entity.HasIndex(e => e.Slug, "UQ__Servicio__BC7B5FB6023CA2A3").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Activo).HasDefaultValue(true);
@@ -111,7 +109,6 @@ public partial class LubricentroContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Idcategoria).HasColumnName("IDCategoria");
-            entity.Property(e => e.Imagen).HasMaxLength(500);
             entity.Property(e => e.Slug).HasMaxLength(250);
             entity.Property(e => e.Titulo).HasMaxLength(200);
 
@@ -123,7 +120,7 @@ public partial class LubricentroContext : DbContext
 
         modelBuilder.Entity<Usuarios>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC27EB8C43E8");
+            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC27C5054383");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Contrasenna).HasMaxLength(255);

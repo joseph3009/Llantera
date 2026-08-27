@@ -17,7 +17,7 @@ public partial class Servicios
 
     public string DescripcionLarga { get; set; } = null!;
 
-    public string? Imagen { get; set; }
+    public byte[]? Imagen { get; set; }
 
     public bool Activo { get; set; }
 
