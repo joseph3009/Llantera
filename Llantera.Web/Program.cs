@@ -1,5 +1,12 @@
+using Llantera.Application;
+using Llantera.Application.Services.Implementations;
+using Llantera.Application.Services.Interfaces;
 using Llantera.Infraestructure.Data;
+using Llantera.Infraestructure.Repository.Implementations;
+using Llantera.Infraestructure.Repository.Interfaces;
 using Llantera.Web.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -10,6 +17,38 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Repository 
+builder.Services.AddTransient<IRepositoryUsuarios, RepositoryUsuarios>();
+builder.Services.AddTransient<IRepositoryRol, RepositoryRol>();
+
+//Services 
+builder.Services.AddTransient<IServiceUsuarios, ServiceUsuarios>();
+builder.Services.AddTransient<IServiceRol, ServiceRol>();
+
+
+
+// Mapeo de la clase AppConfig para leer appsettings.json
+builder.Services.Configure<AppConfig>(builder.Configuration);
+
+// Configurar autenticación cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.AccessDeniedPath = "/Login/Forbidden/";
+    });
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(
+            new ResponseCacheAttribute
+            {
+                NoStore = true,
+                Location = ResponseCacheLocation.None,
+            }
+        );
+});
+
 // Configuar Conexión a la Base de Datos SQL
 builder.Services.AddDbContext<LubricentroContext>(options =>
 {
@@ -18,6 +57,10 @@ builder.Services.AddDbContext<LubricentroContext>(options =>
     if (builder.Environment.IsDevelopment())
         options.EnableSensitiveDataLogging();
 });
+
+
+
+
 
 //
 //Configuración Serilog

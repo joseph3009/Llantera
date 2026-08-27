@@ -14,9 +14,4 @@
     <ProjectReference Include="..\Llantera.Infraestructure\Llantera.Infraestructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Implementations\" />
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
-
 </Project>
