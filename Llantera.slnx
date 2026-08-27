@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Llantera.Application/Llantera.Application.csproj" />
+  <Project Path="Llantera.Infraestructure/Llantera.Infraestructure.csproj" />
+  <Project Path="Llantera.Web/Llantera.Web.csproj" />
+</Solution>
