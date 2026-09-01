@@ -24,6 +24,11 @@ builder.Services.AddResponseCompression(options =>
 //Repository 
 builder.Services.AddTransient<IRepositoryUsuarios, RepositoryUsuarios>();
 builder.Services.AddTransient<IRepositoryRol, RepositoryRol>();
+builder.Services.AddTransient<IRepositoryArticulos, RepositoryArticulos>();
+builder.Services.AddTransient<IRepositoryCategoriasArticulos, RepositoryCategoriasArticulos>();
+builder.Services.AddTransient<IRepositoryCategoriasServicios, RepositoryCategoriasServicios>();
+builder.Services.AddTransient<IRepositoryGaleria, RepositoryGaleria>();
+builder.Services.AddTransient<IRepositoryServicios, RepositoryServicios>();
 
 //Services 
 builder.Services.AddTransient<IServiceUsuarios, ServiceUsuarios>();
