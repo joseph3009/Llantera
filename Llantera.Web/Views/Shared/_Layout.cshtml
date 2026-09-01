@@ -1,102 +1,205 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    // ================================================================
+    // PÁGINA ACTUAL
+    // ================================================================
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+
+    bool IsActive(string controller, string action = "Index")
+    {
+        return currentController.Equals(controller, StringComparison.OrdinalIgnoreCase)
+            && currentAction.Equals(action, StringComparison.OrdinalIgnoreCase);
+    }
+}
+
+<!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewData["Title"] - Llantera Wifragara</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ============================================================ -->
+    <!-- BOOTSTRAP -->
+    <!-- ============================================================ -->
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <!-- ============================================================ -->
+    <!-- GOOGLE FONTS -->
+    <!-- ============================================================ -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
           rel="stylesheet">
 
+
+    <!-- ============================================================ -->
     <!-- FONT AWESOME -->
+    <!-- ============================================================ -->
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- Tus estilos -->
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+
+    <!-- ============================================================ -->
+    <!-- ESTILOS -->
+    <!-- ============================================================ -->
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/home.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/layout.css"
+          asp-append-version="true" />
+
+        <link rel="stylesheet"
+          href="~/css/servicios.css"
+          asp-append-version="true" />
+
 
     @await RenderSectionAsync("Styles", required: false)
+
 </head>
 
+
 <body>
+
 
     <!-- ============================================================ -->
     <!-- HEADER -->
     <!-- ============================================================ -->
 
-    <header class="site-header" id="siteHeader">
+    <header class="site-header"
+            id="siteHeader">
 
         <div class="header-inner">
 
+
+            <!-- ==================================================== -->
             <!-- LOGO -->
-            <a href="#hero" class="brand-logo" aria-label="Wifragara - Inicio">
+            <!-- ==================================================== -->
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="brand-logo"
+               aria-label="Wifragara - Inicio">
 
                 <span class="brand-logo-image">
+
                     <img src="~/images/logo.png"
                          alt="Wifragara"
                          loading="eager" />
+
                 </span>
 
             </a>
 
 
+            <!-- ==================================================== -->
             <!-- NAVEGACIÓN -->
-            <nav class="main-nav" aria-label="Navegación principal">
+            <!-- ==================================================== -->
+
+            <nav class="main-nav"
+                 aria-label="Navegación principal">
 
                 <ul>
 
+
+                    <!-- ================================================= -->
+                    <!-- INICIO -->
+                    <!-- ================================================= -->
+
                     <li>
-                        <a href="#hero"
-                           data-section="hero"
-                           class="nav-link-custom">
+
+                        <a asp-controller="Home"
+                           asp-action="Index"
+                           class="nav-link-custom @(IsActive("Home") ? "active" : "")">
 
                             <i class="fa-solid fa-house"></i>
+
                             <span>Inicio</span>
 
                         </a>
+
                     </li>
 
+
+                    <!-- ================================================= -->
+                    <!-- SERVICIOS -->
+                    <!-- ================================================= -->
+
                     <li>
-                        <a href="#servicios"
-                           data-section="servicios"
-                           class="nav-link-custom">
+
+                        <a asp-controller="Servicios"
+                           asp-action="Index"
+                           class="nav-link-custom @(IsActive("Servicios") ? "active" : "")">
 
                             <i class="fa-solid fa-screwdriver-wrench"></i>
+
                             <span>Servicios</span>
 
                         </a>
+
                     </li>
 
+
+                    <!-- ================================================= -->
+                    <!-- MARCAS -->
+                    <!-- ================================================= -->
+
                     <li>
-                        <a href="#marcas"
-                           data-section="marcas"
-                           class="nav-link-custom">
+
+                        <a asp-controller="Marcas"
+                           asp-action="Index"
+                           class="nav-link-custom @(IsActive("Marcas") ? "active" : "")">
 
                             <i class="fa-solid fa-circle-check"></i>
+
                             <span>Marcas</span>
 
                         </a>
+
                     </li>
 
+
+                    <!-- ================================================= -->
+                    <!-- NOSOTROS -->
+                    <!-- ================================================= -->
+
                     <li>
-                        <a href="#nosotros"
-                           data-section="nosotros"
-                           class="nav-link-custom">
+
+                        <a asp-controller="Nosotros"
+                           asp-action="Index"
+                           class="nav-link-custom @(IsActive("Nosotros") ? "active" : "")">
 
                             <i class="fa-solid fa-users"></i>
+
                             <span>Nosotros</span>
 
                         </a>
+
                     </li>
 
                 </ul>
@@ -104,21 +207,32 @@
             </nav>
 
 
+            <!-- ==================================================== -->
             <!-- DERECHA -->
+            <!-- ==================================================== -->
+
             <div class="header-right">
 
-                <a href="#contacto" class="btn-cta">
+
+                <!-- COTIZAR -->
+
+                <a asp-controller="Contacto"
+                   asp-action="Index"
+                   class="btn-cta">
 
                     <span>Cotizar</span>
 
                     <span class="arrow">
+
                         <i class="fa-solid fa-arrow-right"></i>
+
                     </span>
 
                 </a>
 
 
                 <!-- MENÚ MÓVIL -->
+
                 <button class="menu-toggle"
                         id="menuToggle"
                         aria-label="Abrir menú"
@@ -126,6 +240,7 @@
                         aria-controls="mobileMenu">
 
                     <span></span>
+
                     <span></span>
 
                 </button>
@@ -145,17 +260,24 @@
          id="mobileMenu"
          aria-hidden="true">
 
+
+        <!-- CERRAR -->
+
         <button class="menu-close"
                 id="menuClose"
                 aria-label="Cerrar menú">
 
             <span></span>
+
             <span></span>
 
         </button>
 
 
-        <!-- Logo móvil -->
+        <!-- ======================================================== -->
+        <!-- LOGO MÓVIL -->
+        <!-- ======================================================== -->
+
         <div class="mobile-brand">
 
             <img src="~/images/logo.png"
@@ -166,48 +288,80 @@
         </div>
 
 
+        <!-- ======================================================== -->
+        <!-- NAVEGACIÓN MÓVIL -->
+        <!-- ======================================================== -->
+
         <nav aria-label="Navegación móvil">
 
             <ul>
 
+
+                <!-- INICIO -->
+
                 <li style="--i:0">
-                    <a href="#hero" class="mobile-link">
+
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       class="mobile-link @(IsActive("Home") ? "active" : "")">
 
                         <i class="fa-solid fa-house"></i>
 
                         <span>Inicio</span>
 
                     </a>
+
                 </li>
 
+
+                <!-- SERVICIOS -->
+
                 <li style="--i:1">
-                    <a href="#servicios" class="mobile-link">
+
+                    <a asp-controller="Servicios"
+                       asp-action="Index"
+                       class="mobile-link @(IsActive("Servicios") ? "active" : "")">
 
                         <i class="fa-solid fa-screwdriver-wrench"></i>
 
                         <span>Servicios</span>
 
                     </a>
+
                 </li>
 
+
+                <!-- MARCAS -->
+
                 <li style="--i:2">
-                    <a href="#marcas" class="mobile-link">
+
+                    <a asp-controller="Marcas"
+                       asp-action="Index"
+                       class="mobile-link @(IsActive("Marcas") ? "active" : "")">
 
                         <i class="fa-solid fa-circle-check"></i>
 
                         <span>Marcas</span>
 
                     </a>
+
                 </li>
 
+
+                <!-- NOSOTROS -->
+
                 <li style="--i:3">
-                    <a href="#nosotros" class="mobile-link">
+
+                    <a asp-controller="Nosotros"
+                       asp-action="Index"
+                       class="mobile-link @(IsActive("Nosotros") ? "active" : "")">
 
                         <i class="fa-solid fa-users"></i>
 
                         <span>Nosotros</span>
 
                     </a>
+
                 </li>
 
             </ul>
@@ -215,11 +369,20 @@
         </nav>
 
 
-        <a href="#contacto" class="mobile-cta">
+        <!-- ======================================================== -->
+        <!-- COTIZAR -->
+        <!-- ======================================================== -->
+
+        <a asp-controller="Contacto"
+           asp-action="Index"
+           class="mobile-cta">
 
             <span>
+
                 <i class="fa-solid fa-phone"></i>
+
                 Cotizar ahora
+
             </span>
 
             <i class="fa-solid fa-arrow-right"></i>
@@ -234,7 +397,9 @@
     <!-- ============================================================ -->
 
     <main>
+
         @RenderBody()
+
     </main>
 
 
@@ -247,21 +412,30 @@
         <div class="footer-content">
 
 
+            <!-- ==================================================== -->
             <!-- MARCA -->
+            <!-- ==================================================== -->
+
             <div class="footer-brand">
 
-                <a href="#hero" class="footer-brand-logo">
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="footer-brand-logo">
 
                     <span class="footer-logo-image">
+
                         <img src="~/images/logo.png"
                              alt="Wifragara" />
+
                     </span>
 
                 </a>
 
 
                 <p class="footer-desc">
+
                     Servicio automotriz de precisión para quienes no se detienen.
+
                 </p>
 
 
@@ -276,56 +450,93 @@
             </div>
 
 
-            <!-- NAVEGACIÓN -->
+            <!-- ==================================================== -->
+            <!-- NAVEGACIÓN FOOTER -->
+            <!-- ==================================================== -->
+
             <div class="footer-column footer-links">
 
                 <h4>
+
                     <span></span>
+
                     Navegación
+
                 </h4>
 
 
-                <a href="#hero">
+                <a asp-controller="Home"
+                   asp-action="Index">
+
                     <i class="fa-solid fa-chevron-right"></i>
+
                     Inicio
+
                 </a>
 
-                <a href="#servicios">
+
+                <a asp-controller="Servicios"
+                   asp-action="Index">
+
                     <i class="fa-solid fa-chevron-right"></i>
+
                     Servicios
+
                 </a>
 
-                <a href="#marcas">
+
+                <a asp-controller="Marcas"
+                   asp-action="Index">
+
                     <i class="fa-solid fa-chevron-right"></i>
+
                     Marcas
+
                 </a>
 
-                <a href="#nosotros">
+
+                <a asp-controller="Nosotros"
+                   asp-action="Index">
+
                     <i class="fa-solid fa-chevron-right"></i>
+
                     Nosotros
+
                 </a>
 
             </div>
 
 
+            <!-- ==================================================== -->
             <!-- CONTACTO -->
+            <!-- ==================================================== -->
+
             <div class="footer-column footer-contacto">
 
                 <h4>
+
                     <span></span>
+
                     Contacto
+
                 </h4>
 
 
-                <a href="tel:+50600000000" class="footer-contact-item">
+                <a href="tel:+50624584478"
+                   class="footer-contact-item">
 
                     <span class="contact-icon">
+
                         <i class="fa-solid fa-phone"></i>
+
                     </span>
 
                     <span>
+
                         <small>Teléfono</small>
+
                         +506 2458 4478
+
                     </span>
 
                 </a>
@@ -335,12 +546,17 @@
                    class="footer-contact-item">
 
                     <span class="contact-icon">
+
                         <i class="fa-solid fa-envelope"></i>
+
                     </span>
 
                     <span>
+
                         <small>Correo</small>
+
                         info@wifragara.com
+
                     </span>
 
                 </a>
@@ -349,12 +565,17 @@
                 <div class="footer-contact-item">
 
                     <span class="contact-icon">
+
                         <i class="fa-solid fa-location-dot"></i>
+
                     </span>
 
                     <span>
+
                         <small>Ubicación</small>
+
                         Tacares, Costa Rica
+
                     </span>
 
                 </div>
@@ -362,21 +583,30 @@
             </div>
 
 
-            <!-- REDES -->
+            <!-- ==================================================== -->
+            <!-- REDES SOCIALES -->
+            <!-- ==================================================== -->
+
             <div class="footer-column footer-social">
 
                 <h4>
+
                     <span></span>
+
                     Redes Sociales
+
                 </h4>
 
 
                 <p>
+
                     Síguenos y mantente al día con Wifragara.
+
                 </p>
 
 
                 <div class="social-icons">
+
 
                     <a href="#"
                        target="_blank"
@@ -410,7 +640,9 @@
                 </div>
 
 
-                <a href="#contacto" class="footer-quote">
+                <a asp-controller="Contacto"
+                   asp-action="Index"
+                   class="footer-quote">
 
                     <span>Solicitar cotización</span>
 
@@ -423,14 +655,18 @@
         </div>
 
 
+        <!-- ============================================================ -->
         <!-- FOOTER BOTTOM -->
+        <!-- ============================================================ -->
 
         <div class="footer-bottom">
 
             <div class="footer-bottom-inner">
 
                 <span>
+
                     © 2026 Wifragara. Todos los derechos reservados.
+
                 </span>
 
             </div>
@@ -448,11 +684,14 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
 
-    <script src="~/js/home.js" asp-append-version="true"></script>
+    <script src="~/js/home.js"
+            asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
 </html>

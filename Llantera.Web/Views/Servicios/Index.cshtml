@@ -1,125 +1,162 @@
 @model ICollection<ServiciosDTO>
 
 @{
-    ViewData["Title"] = "Servicios";
+    ViewData["Title"] = "Servicios — Llantera Wifragara";
 }
 
-<div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 class="h2 mb-0">Servicios</h1>
-            <p class="text-muted small">Gestión de servicios disponibles</p>
-        </div>
-        <a asp-action="Create" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Nuevo Servicio
-        </a>
+<!-- ================================ HERO SERVICIOS ============================= -->
+<section class="hero-services" id="hero-servicios">
+    <div class="hero-services-media">
+        <img class="hero-services-image"
+             src="https://images.pexels.com/photos/3807695/pexels-photo-3807695.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920"
+             alt="Taller de llantas con herramientas profesionales" />
+        <div class="hero-services-overlay"></div>
     </div>
 
-    @if (Model != null && Model.Any())
-    {
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th style="width: 8%">ID</th>
-                        <th style="width: 15%">Título</th>
-                        <th style="width: 12%">Categoría</th>
-                        <th style="width: 25%">Descripción Corta</th>
-                        <th style="width: 10%">Orden</th>
-                        <th style="width: 10%">Estado</th>
-                        <th style="width: 12%">Fecha Registro</th>
-                        <th style="width: 8%">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                <span class="badge bg-secondary">@item.Id</span>
-                            </td>
-                            <td>
-                                <strong>@item.Titulo</strong><br />
-                                <small class="text-muted d-block">@item.Slug</small>
-                            </td>
-                            <td>
+    <div class="hero-services-content">
+        <div class="hero-services-grid">
+            <div class="hero-services-text">
+                <p class="hero-services-eyebrow">LLANTERA WIFRAGARA</p>
+                <h1 class="hero-services-title" id="heroServicesTitle">
+                    <span class="line"><span class="line-inner">NUESTROS</span></span>
+                    <span class="line"><span class="line-inner">SERVICIOS</span></span>
+                    <span class="line"><span class="line-inner accent">PROFESIONALES</span></span>
+                </h1>
+                <p class="hero-services-sub">Soluciones técnicas para mantener tu vehículo en óptimas condiciones</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-cue"><span></span>DESPLÁZATE</div>
+</section>
+
+<!-- ================================ SERVICIOS CARDS ============================= -->
+<section class="services-cards" id="servicios-lista">
+    <div class="services-cards-head">
+        <div class="services-cards-heading">
+            <span class="services-cards-eyebrow">CATÁLOGO COMPLETO</span>
+            <h2>
+                PRECISIÓN<br>
+                <span>EN CADA SERVICIO</span>
+            </h2>
+        </div>
+        <div class="services-cards-intro">
+            <span class="services-cards-line"></span>
+            <p>
+                Conoce todos los servicios que ofrecemos en Wifragara.
+                Cada uno está diseñado para garantizar el máximo
+                rendimiento y seguridad de tu vehículo.
+            </p>
+        </div>
+    </div>
+
+    <div class="services-cards-grid">
+        @if (Model != null && Model.Any())
+        {
+            var index = 0;
+            @foreach (var item in Model.OrderBy(x => x.Orden))
+            {
+                index++;
+                var imageSrc = item.Imagen != null && item.Imagen.Length > 0
+                    ? $"data:image/jpeg;base64,{Convert.ToBase64String(item.Imagen)}"
+                    : "https://images.pexels.com/photos/3807695/pexels-photo-3807695.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
+
+                <article class="service-card @(index == 1 ? "is-active" : "")"
+                         data-index="@index">
+                    <div class="service-card-number">@index.ToString("D2")</div>
+                    <div class="service-card-visual">
+                        <img src="@imageSrc"
+                             alt="@item.Titulo"
+                             loading="lazy" />
+                        <div class="service-card-visual-overlay"></div>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="service-card-top">
+                            <span class="service-card-category">
                                 @if (item.IdcategoriaNavigation != null)
                                 {
-                                    <span class="badge bg-info">@item.IdcategoriaNavigation.Nombre</span>
+                                    @item.IdcategoriaNavigation.Nombre
                                 }
                                 else
                                 {
-                                    <span class="badge bg-secondary">N/A</span>
+                                    <span>SERVICIO</span>
                                 }
-                            </td>
-                            <td>
-                                <small>@item.DescripcionCorta</small>
-                            </td>
-                            <td class="text-center">
-                                <span class="badge bg-primary">@item.Orden</span>
-                            </td>
-                            <td class="text-center">
-                                @if (item.Activo)
-                                {
-                                    <span class="badge bg-success">
-                                        <i class="bi bi-check-circle"></i> Activo
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-warning">
-                                        <i class="bi bi-x-circle"></i> Inactivo
-                                    </span>
-                                }
-                            </td>
-                            <td>
-                                <small class="text-muted">@item.FechaRegistro.ToString("dd/MM/yyyy")</small>
-                            </td>
-                            <td class="text-end">
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Ver detalles">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning" title="Editar">
+                            </span>
+                            <span class="service-card-status @(item.Activo ? "active" : "inactive")">
+                                @(item.Activo ? "● Activo" : "○ Inactivo")
+                            </span>
+                        </div>
+                        <h3 class="service-card-title">@item.Titulo</h3>
+                        <p class="service-card-desc">@item.DescripcionCorta</p>
+                        <div class="service-card-actions">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="service-card-btn">
+                                Ver detalles <span class="arrow">→</span>
+                            </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="service-card-admin">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="admin-btn" title="Editar">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="admin-btn danger" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-    else
-    {
-        <div class="alert alert-info" role="alert">
-            <i class="bi bi-info-circle"></i>
-            <strong>Sin registros</strong> - No hay servicios registrados aún.
-            <a asp-action="Create" class="alert-link">Crear el primer servicio</a>
-        </div>
-    }
-</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="service-card-glow"></div>
+                </article>
+            }
+        }
+        else
+        {
+            <div class="services-empty">
+                <span class="services-empty-icon">🔧</span>
+                <h3>Sin servicios registrados</h3>
+                <p>No hay servicios disponibles en este momento.</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Create" class="btn-primary">Crear primer servicio <span class="arrow">→</span></a>
+                }
+            </div>
+        }
+    </div>
+</section>
 
-<style>
-    .table-hover tbody tr:hover {
-        background-color: rgba(13, 110, 253, 0.05);
-    }
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // ========================= HERO TITLE ANIMATION =========================
+        const heroTitle = document.getElementById("heroServicesTitle");
+        if (heroTitle) {
+            setTimeout(() => {
+                heroTitle.classList.add("is-in");
+            }, 300);
+        }
 
-    .badge {
-        padding: 0.35em 0.65em;
-        font-size: 0.85em;
-    }
+        // ========================= SERVICE CARDS ANIMATION =========================
+        const cards = document.querySelectorAll(".service-card");
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add("is-visible");
+                    }, index * 150);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
-    .btn-group-sm .btn {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.875rem;
-    }
+        cards.forEach(card => cardObserver.observe(card));
 
-    .btn-group-sm .btn i {
-        margin-right: 2px;
-    }
-</style>
+        // ========================= HOVER EFFECT ON CARDS =========================
+        cards.forEach(card => {
+            card.addEventListener("mouseenter", () => {
+                cards.forEach(c => c.classList.remove("is-active"));
+                card.classList.add("is-active");
+            });
+        });
+    });
+</script>
