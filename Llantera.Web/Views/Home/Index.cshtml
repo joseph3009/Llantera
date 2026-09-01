@@ -1,8 +1,470 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Llantera Wifragara — El camino empieza aquí";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- ================================ HERO ============================= -->
+<section class="hero" id="hero" data-section-name="Inicio">
+    <div class="hero-media">
+        <img class="hero-image" id="heroImage"
+             src="https://images.pexels.com/photos/13870801/pexels-photo-13870801.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920"
+             alt="Automóvil deportivo negro de noche, luces traseras encendidas sobre el asfalto" />
+        <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <p class="hero-eyebrow reveal">LLANTERA WIFRAGARA</p>
+                <h1 class="hero-title" id="heroTitle">
+                    <span class="line"><span class="line-inner">EL CAMINO</span></span>
+                    <span class="line"><span class="line-inner">EMPIEZA</span></span>
+                    <span class="line"><span class="line-inner accent">AQUÍ.</span></span>
+                </h1>
+                <p class="hero-sub reveal">Servicio de llantas para quienes no se detienen</p>
+                <a href="#servicios" class="btn-primary reveal">Ver servicios <span class="arrow">→</span></a>
+            </div>
+
+            <div class="hero-wheel-area">
+                <div class="hero-track-ring"></div>
+                <div class="hero-speed-lines">
+                    <span class="speed-line s2"></span>
+                    <span class="speed-line s3"></span>
+                    <span class="speed-line s4"></span>
+                    <span class="speed-line s5"></span>
+                    <span class="speed-line s6"></span>
+                    <span class="speed-line s7"></span>
+                </div>
+                <div class="hero-tread-pattern"></div>
+                <div class="hero-core-glow"></div>
+                <div class="hero-wheel-fade"></div>
+                <img class="hero-wheel" src="images/llanta.png" alt="Llanta" />
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-cue"><span></span>DESPLÁZATE</div>
+</section>
+
+<!-- =============================== SERVICIOS ========================== -->
+<section class="services" id="servicios" data-section-name="Servicios">
+    <div class="services-head">
+        <div class="services-heading">
+            <span class="services-eyebrow">NUESTROS SERVICIOS</span>
+            <h2>
+                PRECISIÓN<br>
+                <span>EN CADA DETALLE</span>
+            </h2>
+        </div>
+        <div class="services-intro">
+            <span class="services-line"></span>
+            <p>
+                Soluciones profesionales para que tu vehículo
+                mantenga el control, el equilibrio y el rendimiento
+                que necesitas en cada camino.
+            </p>
+        </div>
+    </div>
+
+    <div class="services-body">
+        <div class="services-list">
+            <article class="service-item is-active"
+                     tabindex="0"
+                     data-image="https://images.pexels.com/photos/3807695/pexels-photo-3807695.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                     data-alt="Técnico revisando la presión de una llanta en el taller">
+                <div class="service-top">
+                    <span class="service-index">01</span>
+                    <span class="service-category">DIRECCIÓN</span>
+                </div>
+                <div class="service-main">
+                    <h3 class="service-name">Alineación</h3>
+                    <p class="service-desc">
+                        Ajustamos la dirección con precisión para lograr
+                        una conducción estable, segura y uniforme.
+                    </p>
+                </div>
+                <div class="service-action">
+                    <span class="service-arrow">↗</span>
+                </div>
+            </article>
+
+            <article class="service-item"
+                     tabindex="0"
+                     data-image="https://images.pexels.com/photos/20303832/pexels-photo-20303832.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                     data-alt="Primer plano del labrado de una llanta sobre asfalto">
+                <div class="service-top">
+                    <span class="service-index">02</span>
+                    <span class="service-category">EQUILIBRIO</span>
+                </div>
+                <div class="service-main">
+                    <h3 class="service-name">Balanceo</h3>
+                    <p class="service-desc">
+                        Eliminamos vibraciones y mejoramos el contacto
+                        de tus llantas con el camino.
+                    </p>
+                </div>
+                <div class="service-action">
+                    <span class="service-arrow">↗</span>
+                </div>
+            </article>
+
+            <article class="service-item"
+                     tabindex="0"
+                     data-image="https://images.pexels.com/photos/31574041/pexels-photo-31574041.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                     data-alt="Primer plano de un aro y llanta de vehículo">
+                <div class="service-top">
+                    <span class="service-index">03</span>
+                    <span class="service-category">INSTALACIÓN</span>
+                </div>
+                <div class="service-main">
+                    <h3 class="service-name">Montaje</h3>
+                    <p class="service-desc">
+                        Instalación profesional de tus llantas,
+                        cuidando cada detalle durante el proceso.
+                    </p>
+                </div>
+                <div class="service-action">
+                    <span class="service-arrow">↗</span>
+                </div>
+            </article>
+
+            <article class="service-item"
+                     tabindex="0"
+                     data-image="https://images.pexels.com/photos/6453051/pexels-photo-6453051.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                     data-alt="Primer plano de una llanta de automóvil">
+                <div class="service-top">
+                    <span class="service-index">04</span>
+                    <span class="service-category">SEGURIDAD</span>
+                </div>
+                <div class="service-main">
+                    <h3 class="service-name">Reparación</h3>
+                    <p class="service-desc">
+                        Soluciones confiables para devolverle a tus
+                        llantas el rendimiento que necesitas.
+                    </p>
+                </div>
+                <div class="service-action">
+                    <span class="service-arrow">↗</span>
+                </div>
+            </article>
+        </div>
+
+        <div class="services-visual">
+            <div class="services-visual-top"></div>
+            <img class="services-image is-visible"
+                 id="servicesImage"
+                 src="https://images.pexels.com/photos/3807695/pexels-photo-3807695.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+                 alt="Técnico revisando la presión de una llanta en el taller" />
+            <div class="services-visual-overlay"></div>
+            <div class="services-visual-bottom">
+                <span id="serviceCurrentName">ALINEACIÓN</span>
+                <span class="visual-arrow">↗</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================== MARCAS =============================== -->
+<section class="brands-horizontal" id="marcas" data-section-name="Marcas">
+    <div class="brands-sticky">
+        <div class="brands-viewport">
+            <div class="brands-track" id="brandsTrack">
+                <div class="brands-intro">
+                    <div class="brands-header-top">
+                        <span class="section-label">MARCAS QUE TRABAJAMOS</span>
+                        <span class="brands-counter">
+                            <span id="brandCurrent">01</span>
+                            <span class="counter-line"></span>
+                            <span>03</span>
+                        </span>
+                    </div>
+                    <h2>
+                        LAS MEJORES<br>
+                        MARCAS.<br>
+                        <span>UN SOLO CAMINO.</span>
+                    </h2>
+                    <p>
+                        Trabajamos con marcas reconocidas para ofrecerte
+                        rendimiento, seguridad y confianza en cada kilómetro.
+                    </p>
+                    <div class="brands-scroll-indicator">
+                        <span>SCROLL PARA EXPLORAR</span>
+                        <div class="brands-scroll-line">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+
+                <article class="brand-card">
+                    <div class="brand-number">01</div>
+                    <div class="brand-content">
+                        <span class="brand-category">PERFORMANCE / DAILY</span>
+                        <h3>MICHELIN</h3>
+                        <p>Tecnología desarrollada para ofrecer máximo agarre, durabilidad y control en cualquier camino.</p>
+                        <span class="brand-arrow">↗</span>
+                    </div>
+                    <div class="brand-visual">
+                        <div class="brand-glow"></div>
+                        <img src="~/images/Michelin.png" alt="Automóvil deportivo representando la marca Michelin">
+                    </div>
+                    <div class="brand-word">MICHELIN</div>
+                </article>
+
+                <article class="brand-card">
+                    <div class="brand-number">02</div>
+                    <div class="brand-content">
+                        <span class="brand-category">PERFORMANCE / SPORT</span>
+                        <h3>BRIDGESTONE</h3>
+                        <p>Innovación y precisión para quienes buscan estabilidad, respuesta y rendimiento en cada recorrido.</p>
+                        <span class="brand-arrow">↗</span>
+                    </div>
+                    <div class="brand-visual">
+                        <div class="brand-glow"></div>
+                        <img src="~/images/bridgestone.png" alt="Automóvil deportivo representando la marca Bridgestone">
+                    </div>
+                    <div class="brand-word">BRIDGESTONE</div>
+                </article>
+
+                <article class="brand-card">
+                    <div class="brand-number">03</div>
+                    <div class="brand-content">
+                        <span class="brand-category">PERFORMANCE / PREMIUM</span>
+                        <h3>CONTINENTAL</h3>
+                        <p>Ingeniería alemana enfocada en seguridad, precisión y una experiencia de conducción superior.</p>
+                        <span class="brand-arrow">↗</span>
+                    </div>
+                    <div class="brand-visual">
+                        <div class="brand-glow"></div>
+                        <img src="~/images/continental.png" alt="Automóvil representando la marca Continental">
+                    </div>
+                    <div class="brand-word">CONTINENTAL</div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================ NOSOTROS =========================== -->
+<section class="about" id="nosotros" data-section-name="Nosotros">
+    <div class="about-inner">
+        <div class="about-main">
+            <div class="about-copy">
+                <div class="about-kicker">MÁS QUE LLANTAS</div>
+                <h2>
+                    CONFIANZA
+                    <span>EN CADA</span>
+                    KILÓMETRO
+                </h2>
+                <div class="about-description">
+                    <span class="about-line"></span>
+                    <p>
+                        En Wifragara entendemos que cada viaje empieza
+                        con una base sólida. Combinamos experiencia,
+                        precisión técnica y atención al detalle para
+                        que puedas seguir avanzando con confianza.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about-image-wrap">
+                <div class="about-image-frame">
+                    <img class="about-image"
+                         id="aboutImage"
+                         src="~/images/banner-llantera.png"
+                         alt="Banner de llantera" />
+                    <div class="about-image-overlay"></div>
+                </div>
+                <div class="about-image-caption">
+                    <span>PRECISIÓN</span>
+                    <span>DESDE 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-values reveal">
+            <div class="about-value">
+                <span class="about-value-name">EXPERIENCIA</span>
+                <span class="about-value-line"></span>
+                <p>Conocimiento que se convierte en seguridad.</p>
+            </div>
+            <div class="about-value">
+                <span class="about-value-name">CALIDAD</span>
+                <span class="about-value-line"></span>
+                <p>Cada detalle importa cuando estás en movimiento.</p>
+            </div>
+            <div class="about-value">
+                <span class="about-value-name">CONFIANZA</span>
+                <span class="about-value-line"></span>
+                <p>Tu camino comienza con la decisión correcta.</p>
+            </div>
+        </div>
+
+        <div class="about-bottom reveal">
+            <span>EL CAMINO EMPIEZA AQUÍ.</span>
+        </div>
+    </div>
+</section>
+
+<!-- ================================ IMPACTO ============================ -->
+<section class="impact" id="impacto" data-section-name="Impacto">
+    <img class="impact-image" id="impactImage"
+         src="https://images.pexels.com/photos/12727497/pexels-photo-12727497.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920"
+         alt="Automóvil circulando por una carretera vacía" />
+    <div class="impact-overlay"></div>
+    <div class="impact-content">
+        <span class="impact-tag">RENDIMIENTO</span>
+        <h2 class="reveal">HECHO PARA<br />SEGUIR AVANZANDO.</h2>
+        <div class="impact-line"></div>
+    </div>
+</section>
+
+<!-- ================================ CTA FINAL =========================== -->
+<section class="cta-final" id="contacto" data-section-name="Contacto">
+    <img class="cta-bg"
+         src="https://images.pexels.com/photos/4940918/pexels-photo-4940918.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920"
+         alt="Automóvil deportivo de lujo en una calle de ciudad de noche" />
+    <div class="cta-overlay"></div>
+    <div class="cta-content">
+        <span class="cta-tag">CONTACTO</span>
+        <h2 class="reveal">¿LISTO<br />PARA SEGUIR?</h2>
+        <p class="reveal">Cotiza tu próximo juego de llantas y agenda tu cita sin filas de espera.</p>
+        <a href="tel:+50600000000" class="btn-primary large reveal">Cotizar ahora <span class="arrow">→</span></a>
+        <div class="cta-line"></div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // ========================= BRANDS HORIZONTAL SCROLL =========================
+        const section = document.querySelector(".brands-horizontal");
+        const sticky = document.querySelector(".brands-sticky");
+        const track = document.querySelector("#brandsTrack");
+        const current = document.querySelector("#brandCurrent");
+        const scrollLine = document.querySelector(".brands-scroll-line i");
+
+        if (!section || !sticky || !track) return;
+
+        let maxTranslate = 0;
+
+        function calculateHorizontalScroll() {
+            if (window.innerWidth <= 860) {
+                maxTranslate = 0;
+                return;
+            }
+            const viewportWidth = window.innerWidth;
+            maxTranslate = Math.max(0, track.scrollWidth - viewportWidth);
+        }
+
+        function updateHorizontalScroll() {
+            if (window.innerWidth <= 860) {
+                track.style.transform = "none";
+                return;
+            }
+
+            const sectionTop = section.offsetTop;
+            const scrollDistance = section.offsetHeight - sticky.offsetHeight;
+
+            if (scrollDistance <= 0) return;
+
+            let progress = (window.scrollY - sectionTop) / scrollDistance;
+            progress = Math.max(0, Math.min(1, progress));
+
+            const translateX = maxTranslate * progress;
+            track.style.transform = `translate3d(${-translateX}px, 0, 0)`;
+
+            section.style.setProperty("--brands-progress", `${progress * 100}%`);
+
+            let brandIndex = Math.floor(progress * 3) + 1;
+            brandIndex = Math.max(1, Math.min(3, brandIndex));
+            current.textContent = String(brandIndex).padStart(2, "0");
+
+            if (scrollLine) {
+                scrollLine.style.transform = `translateX(${progress * 230}%)`;
+            }
+        }
+
+        function refresh() {
+            calculateHorizontalScroll();
+            updateHorizontalScroll();
+        }
+
+        window.addEventListener("scroll", updateHorizontalScroll, { passive: true });
+        window.addEventListener("resize", refresh);
+        refresh();
+
+        // ========================= SERVICES INTERACTION =========================
+        const items = document.querySelectorAll(".service-item");
+        const image = document.getElementById("servicesImage");
+        const nameDisplay = document.getElementById("serviceCurrentName");
+
+        if (items.length && image) {
+            function setActive(activeItem) {
+                items.forEach(item => item.classList.remove("is-active"));
+                activeItem.classList.add("is-active");
+
+                const src = activeItem.dataset.image;
+                const alt = activeItem.dataset.alt || "";
+                const name = activeItem.querySelector(".service-name")?.textContent || "";
+
+                if (src) {
+                    image.classList.remove("is-visible");
+                    setTimeout(() => {
+                        image.src = src;
+                        image.alt = alt;
+                        image.classList.add("is-visible");
+                    }, 200);
+                }
+
+                if (nameDisplay) {
+                    nameDisplay.textContent = name.toUpperCase();
+                }
+            }
+
+            items.forEach(item => {
+                item.addEventListener("click", () => setActive(item));
+                item.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") setActive(item);
+                });
+            });
+
+            const firstActive = document.querySelector(".service-item.is-active");
+            if (firstActive) setActive(firstActive);
+        }
+
+        // ========================= REVEAL ANIMATIONS =========================
+        const reveals = document.querySelectorAll(".reveal");
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        reveals.forEach(el => revealObserver.observe(el));
+
+        // ========================= HERO TITLE ANIMATION =========================
+        const heroTitle = document.getElementById("heroTitle");
+        if (heroTitle) {
+            setTimeout(() => {
+                heroTitle.classList.add("is-in");
+            }, 300);
+        }
+
+        // ========================= CTA LINE ANIMATION =========================
+        const ctaFinal = document.querySelector(".cta-final");
+        if (ctaFinal) {
+            const ctaObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        ctaFinal.classList.add("is-visible");
+                    }
+                });
+            }, { threshold: 0.3 });
+            ctaObserver.observe(ctaFinal);
+        }
+    });
+</script>
