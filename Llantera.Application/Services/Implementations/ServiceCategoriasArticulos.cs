@@ -29,8 +29,6 @@ namespace Llantera.Application.Services.Implementations
                 Slug = ca.Slug,
                 Activo = ca.Activo,
 
-                // Evitar relación circular
-                Articulos = new List<Llantera.Infraestructure.Models.Articulos>()
             }).ToList();
         }
     }

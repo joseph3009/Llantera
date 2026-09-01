@@ -5,6 +5,7 @@ using Llantera.Infraestructure.Data;
 using Llantera.Infraestructure.Repository.Implementations;
 using Llantera.Infraestructure.Repository.Interfaces;
 using Llantera.Web.Middleware;
+using Mapster;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,11 @@ builder.Services.AddTransient<IRepositoryServicios, RepositoryServicios>();
 //Services 
 builder.Services.AddTransient<IServiceUsuarios, ServiceUsuarios>();
 builder.Services.AddTransient<IServiceRol, ServiceRol>();
+builder.Services.AddTransient<IServiceArticulos, ServiceArticulos>();
+builder.Services.AddTransient<IServiceCategoriasArticulos, ServiceCategoriasArticulos>();
+builder.Services.AddTransient<IServiceCategoriasServicios, ServiceCategoriasServicios>();
+builder.Services.AddTransient<IServiceGaleria, ServiceGaleria>();
+builder.Services.AddTransient<IServiceServicios, ServiceServicios>();
 
 
 
@@ -89,6 +95,7 @@ var logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog(logger);
 
+TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
 var app = builder.Build();
 
 

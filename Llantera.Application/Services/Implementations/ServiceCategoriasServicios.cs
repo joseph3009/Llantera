@@ -29,8 +29,6 @@ namespace Llantera.Application.Services.Implementations
                 Descripcion = cs.Descripcion,
                 Activo = cs.Activo,
 
-                // Evitar relación circular
-                Servicios = new List<Llantera.Infraestructure.Models.Servicios>()
             }).ToList();
         }
     }

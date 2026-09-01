@@ -27,8 +27,6 @@ namespace Llantera.Application.Services.Implementations
                 Id = r.Id,
                 Descripcion = r.Descripcion,
 
-                // Evitar relación circular
-                Usuarios = new List<UsuariosDTO>()
             }).ToList();
         }
     }
