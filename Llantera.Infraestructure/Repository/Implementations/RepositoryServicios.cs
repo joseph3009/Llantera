@@ -28,6 +28,7 @@ namespace Llantera.Infraestructure.Repository.Implementations
         public async Task<ICollection<Servicios>> ListAsync()
         {
             return await _context.Servicios
+                .Include(x => x.IdcategoriaNavigation)
                 .ToListAsync();
         }
 

@@ -33,7 +33,14 @@ namespace Llantera.Application.Services.Implementations
                 Imagen = s.Imagen,
                 Activo = s.Activo,
                 Orden = s.Orden,
-                FechaRegistro = s.FechaRegistro
+                FechaRegistro = s.FechaRegistro,
+                IdcategoriaNavigation = s.IdcategoriaNavigation != null ? new CategoriasServiciosDTO
+                {
+                    Id = s.IdcategoriaNavigation.Id,
+                    Nombre = s.IdcategoriaNavigation.Nombre,
+                    Descripcion = s.IdcategoriaNavigation.Descripcion,
+                    Activo = s.IdcategoriaNavigation.Activo
+                } : null!
             }).ToList();
         }
     }
