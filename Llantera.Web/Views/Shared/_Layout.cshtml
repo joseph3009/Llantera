@@ -165,7 +165,7 @@
                     </li>
 
                     <!-- ================================================= -->
-                    <!-- Artículos -->
+                    <!-- Artículos (icon updated) -->
                     <!-- ================================================= -->
 
                     <li>
@@ -174,9 +174,27 @@
                            asp-action="Index"
                            class="nav-link-custom @(IsActive("Articulos") ? "active" : "")">
 
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                            <i class="fa-solid fa-newspaper"></i>
 
                             <span>Articulos</span>
+
+                        </a>
+
+                    </li>
+
+                    <!-- ================================================= -->
+                    <!-- GALERÍA -->
+                    <!-- ================================================= -->
+
+                    <li>
+
+                        <a asp-controller="Galeria"
+                           asp-action="Index"
+                           class="nav-link-custom @(IsActive("Galeria") ? "active" : "")">
+
+                            <i class="fa-solid fa-image"></i>
+
+                            <span>Galeria</span>
 
                         </a>
 
