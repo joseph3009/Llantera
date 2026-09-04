@@ -61,8 +61,7 @@
                     ? $"data:image/jpeg;base64,{Convert.ToBase64String(item.Imagen)}"
                     : "https://images.pexels.com/photos/3807695/pexels-photo-3807695.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
 
-                <article class="service-card @(index == 1 ? "is-active" : "")"
-                         data-index="@index">
+                <article class="service-card data-index=" @index">
                     <div class="service-card-number">@index.ToString("D2")</div>
                     <div class="service-card-visual">
                         <img src="@imageSrc"
@@ -150,13 +149,5 @@
         });
 
         cards.forEach(card => cardObserver.observe(card));
-
-        // ========================= HOVER EFFECT ON CARDS =========================
-        cards.forEach(card => {
-            card.addEventListener("mouseenter", () => {
-                cards.forEach(c => c.classList.remove("is-active"));
-                card.classList.add("is-active");
-            });
-        });
     });
 </script>
