@@ -1,61 +1,197 @@
-@model ICollection<UsuariosDTO>
+@model ICollection<Llantera.Application.DTOs.UsuariosDTO>
 
 @{
-	ViewData["Title"] = "Usuarios";
+    ViewData["Title"] = "Usuarios — Panel Administrativo";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-	<h1 class="h3 mb-0">Usuarios</h1>
-	<a asp-action="Create" class="btn btn-primary">Nuevo usuario</a>
-</div>
+<!-- ================================ HERO USUARIOS ============================= -->
+<section class="hero-usuarios" id="hero-usuarios">
+    <div class="hero-usuarios-media">
+        <img class="hero-usuarios-image"
+             src="https://images.pexels.com/photos/3807695/pexels-photo-3807695.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920"
+             alt="Panel de administración de usuarios" />
+        <div class="hero-usuarios-overlay"></div>
+    </div>
 
-<div class="table-responsive">
-	<table class="table table-striped table-hover align-middle">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Correo</th>
-				<th>Teléfono</th>
-				<th>Rol</th>
-				<th>Estado</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			@if (Model != null && Model.Any())
-			{
-				foreach (var item in Model)
-				{
-					<tr>
-						<td>@item.Id</td>
-						<td>@item.Nombre</td>
-						<td>@item.Correo</td>
-						<td>@item.Telefono</td>
-						<td>@item.IdrolNavigation?.Descripcion</td>
-						<td>
-							@if (item.Estado)
-							{
-								<span class="badge bg-success">Activo</span>
-							}
-							else
-							{
-								<span class="badge bg-secondary">Inactivo</span>
-							}
-						</td>
-						<td class="text-end">
-							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Ver</a>
-							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Editar</a>
-						</td>
-					</tr>
-				}
-			}
-			else
-			{
-				<tr>
-					<td colspan="7" class="text-center text-muted py-4">No hay usuarios registrados.</td>
-				</tr>
-			}
-		</tbody>
-	</table>
-</div>
+    <div class="hero-usuarios-content">
+        <div class="hero-usuarios-grid">
+            <div class="hero-usuarios-text">
+                <p class="hero-usuarios-eyebrow">PANEL ADMINISTRATIVO</p>
+                <h1 class="hero-usuarios-title" id="heroUsuariosTitle">
+                    <span class="line"><span class="line-inner">GESTIÓN</span></span>
+                    <span class="line"><span class="line-inner">DE</span></span>
+                    <span class="line"><span class="line-inner accent">USUARIOS</span></span>
+                </h1>
+                <p class="hero-usuarios-sub">Administra los accesos, roles y permisos de los usuarios del sistema</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-cue"><span></span>DESPLÁZATE</div>
+</section>
+
+<!-- ================================ USUARIOS ADMIN ============================= -->
+<section class="usuarios-admin" id="usuarios-lista">
+    <div class="usuarios-admin-head">
+        <div class="usuarios-admin-heading">
+            <span class="usuarios-admin-eyebrow">CONTROL DE ACCESO</span>
+            <h2>
+                USUARIOS<br>
+                <span>REGISTRADOS</span>
+            </h2>
+        </div>
+        <div class="usuarios-admin-actions">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-action="Create" class="btn-primary">
+                    <i class="bi bi-person-plus"></i>
+                    Nuevo usuario <span class="arrow">→</span>
+                </a>
+            }
+        </div>
+    </div>
+
+    <!-- ===== ESTADÍSTICAS ===== -->
+    @if (Model != null && Model.Any())
+    {
+        var total = Model.Count();
+        var activos = Model.Count(x => x.Estado);
+        var inactivos = total - activos;
+
+        <div class="usuarios-admin-stats">
+            <div class="stat-item">
+                <span class="stat-number">@total</span>
+                <span class="stat-label">Total usuarios</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number active">@activos</span>
+                <span class="stat-label">Activos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number inactive">@inactivos</span>
+                <span class="stat-label">Inactivos</span>
+            </div>
+        </div>
+    }
+
+    <div class="usuarios-admin-grid">
+        @if (Model != null && Model.Any())
+        {
+            var index = 0;
+            @foreach (var item in Model.OrderBy(x => x.Nombre))
+            {
+                index++;
+                var avatarSrc = !string.IsNullOrEmpty(item.Nombre)
+                    ? "https://ui-avatars.com/api/?name=" + Uri.EscapeDataString(item.Nombre) + "&background=e10600&color=ffffff&size=120&bold=true"
+                    : "https://ui-avatars.com/api/?name=Usuario&background=e10600&color=ffffff&size=120&bold=true";
+
+                <article class="usuario-admin-card" data-index="@index">
+                    <div class="usuario-admin-card-number">@index.ToString("D2")</div>
+                    <div class="usuario-admin-card-visual">
+                        <img src="@avatarSrc"
+                             alt="@item.Nombre"
+                             loading="lazy" />
+                        <div class="usuario-admin-card-visual-overlay"></div>
+                    </div>
+                    <div class="usuario-admin-card-content">
+                        <div class="usuario-admin-card-top">
+                            <span class="usuario-admin-card-rol">
+                                <i class="bi bi-shield-check"></i>
+                                @if (item.IdrolNavigation != null)
+                                {
+                                    @item.IdrolNavigation.Descripcion
+                                }
+                                else
+                                {
+                                    <span>Sin rol</span>
+                                }
+                            </span>
+                            <span class="usuario-admin-card-status @(item.Estado ? "active" : "inactive")">
+                                @(item.Estado ? "● Activo" : "○ Inactivo")
+                            </span>
+                        </div>
+                        <h3 class="usuario-admin-card-title">@item.Nombre</h3>
+                        <div class="usuario-admin-card-details">
+                            <div class="usuario-admin-card-detail">
+                                <i class="bi bi-envelope"></i>
+                                <span>@item.Correo</span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(item.Telefono))
+                            {
+                                <div class="usuario-admin-card-detail">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>@item.Telefono</span>
+                                </div>
+                            }
+                            <div class="usuario-admin-card-detail">
+                                <i class="bi bi-hash"></i>
+                                <span>ID: @item.Id</span>
+                            </div>
+                        </div>
+                        <div class="usuario-admin-card-actions">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="usuario-admin-card-btn">
+                                Ver detalles
+                            </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="usuario-admin-card-tools">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="admin-btn" title="Editar usuario">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="admin-btn danger" title="Eliminar usuario" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="usuario-admin-card-glow"></div>
+                </article>
+            }
+        }
+        else
+        {
+            <div class="usuarios-admin-empty">
+                <span class="usuarios-admin-empty-icon">👥</span>
+                <h3>Sin usuarios registrados</h3>
+                <p>No hay usuarios en el sistema.</p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Create" class="btn-primary">
+                        <i class="bi bi-person-plus"></i>
+                        Crear primer usuario <span class="arrow">→</span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // ========================= HERO TITLE ANIMATION =========================
+        const heroTitle = document.getElementById("heroUsuariosTitle");
+        if (heroTitle) {
+            setTimeout(() => {
+                heroTitle.classList.add("is-in");
+            }, 300);
+        }
+
+        // ========================= USERS CARDS ANIMATION =========================
+        const cards = document.querySelectorAll(".usuario-admin-card");
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add("is-visible");
+                    }, index * 150);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        cards.forEach(card => cardObserver.observe(card));
+    });
+</script>
