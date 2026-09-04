@@ -1,6 +1,8 @@
 using Llantera.Application.DTOs;
 using Llantera.Application.Services.Interfaces;
+using Llantera.Infraestructure.Models;
 using Llantera.Infraestructure.Repository.Interfaces;
+using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,26 +24,57 @@ namespace Llantera.Application.Services.Implementations
         {
             var list = await _repository.ListAsync();
 
-            return list.Select(s => new ServiciosDTO
+            return list.Adapt<ICollection<ServiciosDTO>>();
+        }
+
+        public async Task<ServiciosDTO> FindByIdAsync(int id)
+        {
+            var entity = await _repository.FindByIdAsync(id);
+
+            return entity == null
+                ? null
+                : entity.Adapt<ServiciosDTO>();
+        }
+
+        public async Task<ServiciosDTO> AddAsync(ServiciosDTO dto)
+        {
+            var entity = new Servicios
             {
-                Id = s.Id,
-                Idcategoria = s.Idcategoria,
-                Titulo = s.Titulo,
-                Slug = s.Slug,
-                DescripcionCorta = s.DescripcionCorta,
-                DescripcionLarga = s.DescripcionLarga,
-                Imagen = s.Imagen,
-                Activo = s.Activo,
-                Orden = s.Orden,
-                FechaRegistro = s.FechaRegistro,
-                IdcategoriaNavigation = s.IdcategoriaNavigation != null ? new CategoriasServiciosDTO
-                {
-                    Id = s.IdcategoriaNavigation.Id,
-                    Nombre = s.IdcategoriaNavigation.Nombre,
-                    Descripcion = s.IdcategoriaNavigation.Descripcion,
-                    Activo = s.IdcategoriaNavigation.Activo
-                } : null!
-            }).ToList();
+                Idcategoria = dto.Idcategoria,
+                Titulo = dto.Titulo,
+                Slug = dto.Slug,
+                DescripcionCorta = dto.DescripcionCorta,
+                DescripcionLarga = dto.DescripcionLarga,
+                Imagen = dto.Imagen,
+                Activo = dto.Activo,
+                Orden = dto.Orden,
+                FechaRegistro = DateTime.Now
+            };
+
+            var result = await _repository.AddAsync(entity);
+
+            return result.Adapt<ServiciosDTO>();
+        }
+
+        public async Task UpdateAsync(int id, ServiciosDTO dto)
+        {
+            var entity = await _repository.FindByIdAsync(id);
+
+            if (entity == null)
+                throw new KeyNotFoundException(
+                    $"Servicio con ID {id} no encontrado."
+                );
+
+            entity.Idcategoria = dto.Idcategoria;
+            entity.Titulo = dto.Titulo;
+            entity.Slug = dto.Slug;
+            entity.DescripcionCorta = dto.DescripcionCorta;
+            entity.DescripcionLarga = dto.DescripcionLarga;
+            entity.Imagen = dto.Imagen;
+            entity.Activo = dto.Activo;
+            entity.Orden = dto.Orden;
+
+            await _repository.UpdateAsync();
         }
     }
 }

@@ -1,0 +1,66 @@
+@model Llantera.Application.DTOs.ServiciosDTO
+
+@{
+    ViewData["Title"] = "Editar servicio";
+}
+
+<div class="container py-4">
+    <h1>Editar servicio</h1>
+
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input asp-for="Titulo" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Slug</label>
+            <input asp-for="Slug" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción corta</label>
+            <textarea asp-for="DescripcionCorta" class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción larga</label>
+            <textarea asp-for="DescripcionLarga" class="form-control" rows="4"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Orden</label>
+            <input asp-for="Orden" type="number" class="form-control" />
+        </div>
+
+        <div class="mb-3 form-check">
+            <input asp-for="Activo" class="form-check-input" id="activoEdit" />
+            <label class="form-check-label" for="activoEdit">Activo</label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Imagen actual</label>
+            <div>
+                @if (Model.Imagen != null && Model.Imagen.Length > 0)
+                {
+                    var src = $"data:image/jpeg;base64,{Convert.ToBase64String(Model.Imagen)}";
+                    <img src="@src" alt="Imagen" style="max-height:120px;" />
+                }
+                else
+                {
+                    <div class="text-muted">Sin imagen</div>
+                }
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Cambiar imagen</label>
+            <input type="file" name="imagenFile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+</div>

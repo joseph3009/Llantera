@@ -1,0 +1,50 @@
+@model Llantera.Application.DTOs.ServiciosDTO
+
+@{
+    ViewData["Title"] = "Detalles del servicio";
+}
+
+<div class="container py-4">
+    <h1>@Model.Titulo</h1>
+
+    <div class="row mt-3">
+        <div class="col-md-4">
+            @if (Model.Imagen != null && Model.Imagen.Length > 0)
+            {
+                var src = $"data:image/jpeg;base64,{Convert.ToBase64String(Model.Imagen)}";
+                <img src="@src" class="img-fluid rounded" alt="@Model.Titulo" />
+            }
+            else
+            {
+                <img src="~/images/placeholder.png" class="img-fluid rounded" alt="Sin imagen" />
+            }
+        </div>
+        <div class="col-md-8">
+            <dl class="row">
+                <dt class="col-sm-4">Categoría</dt>
+                <dd class="col-sm-8">@Model.IdcategoriaNavigation?.Nombre ?? "-"</dd>
+
+                <dt class="col-sm-4">Slug</dt>
+                <dd class="col-sm-8">@Model.Slug</dd>
+
+                <dt class="col-sm-4">Descripción corta</dt>
+                <dd class="col-sm-8">@Model.DescripcionCorta</dd>
+
+                <dt class="col-sm-4">Descripción larga</dt>
+                <dd class="col-sm-8">@Model.DescripcionLarga</dd>
+
+                <dt class="col-sm-4">Orden</dt>
+                <dd class="col-sm-8">@Model.Orden</dd>
+
+                <dt class="col-sm-4">Activo</dt>
+                <dd class="col-sm-8">@(Model.Activo ? "Sí" : "No")</dd>
+
+                <dt class="col-sm-4">Fecha registro</dt>
+                <dd class="col-sm-8">@Model.FechaRegistro.ToString("yyyy-MM-dd")</dd>
+            </dl>
+
+            <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary ms-2">Editar</a>
+        </div>
+    </div>
+</div>

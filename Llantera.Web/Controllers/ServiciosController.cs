@@ -1,5 +1,7 @@
 ﻿using Llantera.Application.DTOs;
+using Llantera.Application.Services.Implementations;
 using Llantera.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,71 +28,132 @@ namespace Llantera.Web.Controllers
         }
 
         // GET: ServiciosController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var @object = await _serviceServicios.FindByIdAsync(id);
+            return View(@object);
         }
 
         // GET: ServiciosController/Create
-        public ActionResult Create()
+        [HttpGet]
+        //[Authorize(Roles = "Administrador")]
+        public IActionResult Create()
         {
-            return View();
+            var model = new ServiciosDTO();
+
+            return View(model);
         }
 
         // POST: ServiciosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //[Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Create(
+            ServiciosDTO dto,
+            IFormFile? imagenFile)
         {
             try
             {
+                if (imagenFile == null || imagenFile.Length == 0)
+                {
+                    ModelState.AddModelError(
+                        "Imagen",
+                        "Debe seleccionar una imagen."
+                    );
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(dto);
+                }
+
+                using var ms = new MemoryStream();
+
+                await imagenFile.CopyToAsync(ms);
+
+                dto.Imagen = ms.ToArray();
+
+                await _serviceServicios.AddAsync(dto);
+
+                TempData["SuccessMessage"] =
+                    "Servicio creado exitosamente.";
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Ocurrió un error al crear el servicio: " + ex.Message
+                );
+
+                return View(dto);
             }
         }
 
         // GET: ServiciosController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        //[Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var obj = await _serviceServicios.FindByIdAsync(id);
+
+            if (obj == null)
+                return NotFound();
+
+            return View(obj);
         }
 
         // POST: ServiciosController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        //[Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Edit(
+            int id,
+            ServiciosDTO dto,
+            IFormFile? imagenFile)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(dto);
+                }
+
+                var servicioExistente =
+                    await _serviceServicios.FindByIdAsync(id);
+
+                if (servicioExistente == null)
+                    return NotFound();
+
+                if (imagenFile != null && imagenFile.Length > 0)
+                {
+                    using var ms = new MemoryStream();
+
+                    await imagenFile.CopyToAsync(ms);
+
+                    dto.Imagen = ms.ToArray();
+                }
+                else
+                {
+                    dto.Imagen = servicioExistente.Imagen;
+                }
+
+                await _serviceServicios.UpdateAsync(id, dto);
+
+                TempData["SuccessMessage"] =
+                    "Servicio actualizado exitosamente.";
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }
-        }
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Ocurrió un error al actualizar el servicio: " + ex.Message
+                );
 
-        // GET: ServiciosController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ServiciosController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                return View(dto);
             }
         }
     }
