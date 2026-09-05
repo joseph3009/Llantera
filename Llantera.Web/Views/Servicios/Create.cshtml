@@ -4,48 +4,321 @@
     ViewData["Title"] = "Crear servicio";
 }
 
-<div class="container py-4">
-    <h1>Crear servicio</h1>
+<section class="service-form-page">
 
-    <form asp-action="Create" method="post" enctype="multipart/form-data">
-        @Html.AntiForgeryToken()
+    <div class="service-form-container">
 
-        <div class="mb-3">
-            <label class="form-label">Título</label>
-            <input asp-for="Titulo" class="form-control" />
+        <!-- CABECERA -->
+        <div class="service-form-header">
+
+            <div>
+                <span class="service-form-eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>Crear servicio</h1>
+
+                <p>
+                    Registra un nuevo servicio para mostrarlo en el sitio web.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="service-details-back">
+                <span>←</span>
+                Volver a servicios
+            </a>
+
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Slug</label>
-            <input asp-for="Slug" class="form-control" />
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Descripción corta</label>
-            <textarea asp-for="DescripcionCorta" class="form-control" rows="2"></textarea>
-        </div>
+        <!-- VALIDACIONES GENERALES -->
+        <div asp-validation-summary="ModelOnly"
+             class="service-form-validation"></div>
 
-        <div class="mb-3">
-            <label class="form-label">Descripción larga</label>
-            <textarea asp-for="DescripcionLarga" class="form-control" rows="4"></textarea>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Orden</label>
-            <input asp-for="Orden" type="number" class="form-control" />
-        </div>
+        <form asp-action="Create"
+              method="post"
+              enctype="multipart/form-data"
+              class="service-form">
 
-        <div class="mb-3 form-check">
-            <input asp-for="Activo" class="form-check-input" id="activoCreate" />
-            <label class="form-check-label" for="activoCreate">Activo</label>
-        </div>
+            @Html.AntiForgeryToken()
 
-        <div class="mb-3">
-            <label class="form-label">Imagen</label>
-            <input type="file" name="imagenFile" class="form-control" />
-        </div>
+            <div class="service-form-grid">
 
-        <button type="submit" class="btn btn-primary">Crear</button>
-        <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
-    </form>
-</div>
+                <!-- =========================
+                     INFORMACIÓN PRINCIPAL
+                     ========================= -->
+                <div class="service-form-main">
+
+                    <div class="service-form-section-head">
+                        <span>01</span>
+
+                        <div>
+                            <h2>Información principal</h2>
+                            <p>Datos generales que identifican el servicio.</p>
+                        </div>
+                    </div>
+
+
+                    <!-- TÍTULO -->
+                    <div class="service-field">
+
+                        <label asp-for="Titulo">
+                            Título
+                            <span class="required">*</span>
+                        </label>
+
+                        <input asp-for="Titulo"
+                               class="service-input"
+                               placeholder="Ej. Alineación y balanceo" />
+
+                        <span asp-validation-for="Titulo"
+                              class="service-validation"></span>
+
+                    </div>
+
+
+                    <!-- SLUG -->
+                    <div class="service-field">
+
+                        <label asp-for="Slug">
+                            Slug
+                        </label>
+
+                        <input asp-for="Slug"
+                               class="service-input"
+                               placeholder="alineacion-y-balanceo" />
+
+                        <small>
+                            Identificador utilizado en la URL del servicio.
+                        </small>
+
+                        <span asp-validation-for="Slug"
+                              class="service-validation"></span>
+
+                    </div>
+
+
+                    <!-- DESCRIPCIÓN CORTA -->
+                    <div class="service-field">
+
+                        <label asp-for="DescripcionCorta">
+                            Descripción corta
+                        </label>
+
+                        <textarea asp-for="DescripcionCorta"
+                                  class="service-textarea"
+                                  rows="3"
+                                  placeholder="Resumen breve del servicio..."></textarea>
+
+                        <span asp-validation-for="DescripcionCorta"
+                              class="service-validation"></span>
+
+                    </div>
+
+
+                    <!-- DESCRIPCIÓN LARGA -->
+                    <div class="service-field">
+
+                        <label asp-for="DescripcionLarga">
+                            Descripción larga
+                        </label>
+
+                        <textarea asp-for="DescripcionLarga"
+                                  class="service-textarea service-textarea-large"
+                                  rows="7"
+                                  placeholder="Describe detalladamente el servicio..."></textarea>
+
+                        <span asp-validation-for="DescripcionLarga"
+                              class="service-validation"></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     CONFIGURACIÓN
+                     ========================= -->
+                <aside class="service-form-sidebar">
+
+                    <div class="service-form-panel">
+
+                        <div class="service-form-section-head compact">
+                            <span>02</span>
+
+                            <div>
+                                <h2>Configuración</h2>
+                                <p>Visualización y estado.</p>
+                            </div>
+                        </div>
+
+
+                        <!-- ORDEN -->
+                        <div class="service-field">
+
+                            <label asp-for="Orden">
+                                Orden
+                            </label>
+
+                            <input asp-for="Orden"
+                                   type="number"
+                                   min="0"
+                                   class="service-input"
+                                   placeholder="0" />
+
+                            <span asp-validation-for="Orden"
+                                  class="service-validation"></span>
+
+                        </div>
+
+
+                        <!-- ACTIVO -->
+                        <div class="service-toggle-row">
+
+                            <div>
+                                <span class="service-toggle-title">
+                                    Servicio activo
+                                </span>
+
+                                <small>
+                                    Define si estará visible en el sitio.
+                                </small>
+                            </div>
+
+                            <label class="service-switch">
+
+                                <input asp-for="Activo"
+                                       id="activoCreate" />
+
+                                <span class="service-switch-slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         IMAGEN
+                         ========================= -->
+                    <div class="service-form-panel">
+
+                        <div class="service-form-section-head compact">
+                            <span>03</span>
+
+                            <div>
+                                <h2>Imagen</h2>
+                                <p>Imagen principal del servicio.</p>
+                            </div>
+                        </div>
+
+
+                        <label class="service-image-upload"
+                               for="imagenFile">
+
+                            <div class="service-image-preview"
+                                 id="imagePreview">
+
+                                <div class="service-image-placeholder"
+                                     id="imagePlaceholder">
+
+                                    <span class="service-image-icon">
+                                        +
+                                    </span>
+
+                                    <strong>Seleccionar imagen</strong>
+
+                                    <small>
+                                        JPG, JPEG o PNG
+                                    </small>
+
+                                </div>
+
+                                <img id="previewImage"
+                                     alt="Vista previa"
+                                     style="display:none;" />
+
+                            </div>
+
+                        </label>
+
+
+                        <input type="file"
+                               name="imagenFile"
+                               id="imagenFile"
+                               accept="image/jpeg,image/png"
+                               class="service-file-input" />
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+
+            <!-- ACCIONES -->
+            <div class="service-form-actions">
+
+                <a asp-action="Index"
+                   class="service-details-secondary">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="btn-primary">
+                    Crear servicio
+                    <span class="arrow">→</span>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const imagenInput =
+            document.getElementById("imagenFile");
+
+        const previewImage =
+            document.getElementById("previewImage");
+
+        const placeholder =
+            document.getElementById("imagePlaceholder");
+
+        imagenInput.addEventListener("change", function () {
+
+            const file = this.files[0];
+
+            if (!file) {
+                previewImage.style.display = "none";
+                placeholder.style.display = "flex";
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                previewImage.src = e.target.result;
+
+                previewImage.style.display = "block";
+                placeholder.style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+}

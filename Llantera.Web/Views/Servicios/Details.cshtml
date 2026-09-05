@@ -2,49 +2,186 @@
 
 @{
     ViewData["Title"] = "Detalles del servicio";
+
+    string? imageSrc = null;
+
+    if (Model.Imagen != null && Model.Imagen.Length > 0)
+    {
+        imageSrc = $"data:image/jpeg;base64,{Convert.ToBase64String(Model.Imagen)}";
+    }
 }
 
-<div class="container py-4">
-    <h1>@Model.Titulo</h1>
+<section class="service-details">
 
-    <div class="row mt-3">
-        <div class="col-md-4">
-            @if (Model.Imagen != null && Model.Imagen.Length > 0)
-            {
-                var src = $"data:image/jpeg;base64,{Convert.ToBase64String(Model.Imagen)}";
-                <img src="@src" class="img-fluid rounded" alt="@Model.Titulo" />
-            }
-            else
-            {
-                <img src="~/images/placeholder.png" class="img-fluid rounded" alt="Sin imagen" />
-            }
+    <div class="service-details-container">
+
+        <!-- CABECERA -->
+        <div class="service-details-header">
+
+            <div class="service-details-heading">
+
+                <span class="service-details-eyebrow">
+                    DETALLE DEL SERVICIO
+                </span>
+
+                <h1>
+                    @Model.Titulo
+                </h1>
+
+                <div class="service-details-meta">
+
+                    <span class="service-details-category">
+                        @(Model.IdcategoriaNavigation?.Nombre ?? "Sin categoría")
+                    </span>
+
+                    <span class="service-card-status @(Model.Activo ? "active" : "inactive")">
+                        @(Model.Activo ? "ACTIVO" : "INACTIVO")
+                    </span>
+
+                </div>
+
+            </div>
+
+            <a asp-action="Index"
+               class="service-details-back">
+                <span>←</span>
+                Volver a servicios
+            </a>
+
         </div>
-        <div class="col-md-8">
-            <dl class="row">
-                <dt class="col-sm-4">Categoría</dt>
-                <dd class="col-sm-8">@Model.IdcategoriaNavigation?.Nombre ?? "-"</dd>
 
-                <dt class="col-sm-4">Slug</dt>
-                <dd class="col-sm-8">@Model.Slug</dd>
 
-                <dt class="col-sm-4">Descripción corta</dt>
-                <dd class="col-sm-8">@Model.DescripcionCorta</dd>
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="service-details-grid">
 
-                <dt class="col-sm-4">Descripción larga</dt>
-                <dd class="col-sm-8">@Model.DescripcionLarga</dd>
+            <!-- IMAGEN -->
+            <div class="service-details-visual">
 
-                <dt class="col-sm-4">Orden</dt>
-                <dd class="col-sm-8">@Model.Orden</dd>
+                @if (imageSrc != null)
+                {
+                    <img src="@imageSrc"
+                         alt="@Model.Titulo" />
+                }
+                else
+                {
+                    <img src="~/images/placeholder.png"
+                         alt="Sin imagen disponible" />
+                }
 
-                <dt class="col-sm-4">Activo</dt>
-                <dd class="col-sm-8">@(Model.Activo ? "Sí" : "No")</dd>
+                <div class="service-details-overlay"></div>
 
-                <dt class="col-sm-4">Fecha registro</dt>
-                <dd class="col-sm-8">@Model.FechaRegistro.ToString("yyyy-MM-dd")</dd>
-            </dl>
+                <div class="service-details-order">
+                    @Model.Orden.ToString("00")
+                </div>
 
-            <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary ms-2">Editar</a>
+            </div>
+
+
+            <!-- INFORMACIÓN -->
+            <div class="service-details-content">
+
+                @if (!string.IsNullOrWhiteSpace(Model.DescripcionCorta))
+                {
+                    <div class="service-details-intro">
+                        <span></span>
+
+                        <p>
+                            @Model.DescripcionCorta
+                        </p>
+                    </div>
+                }
+
+
+                <div class="service-details-block">
+
+                    <span class="service-details-label">
+                        DESCRIPCIÓN
+                    </span>
+
+                    <p class="service-details-description">
+                        @Model.DescripcionLarga
+                    </p>
+
+                </div>
+
+
+                <div class="service-details-info-grid">
+
+                    <div class="service-details-info">
+                        <span class="service-details-info-label">
+                            CATEGORÍA
+                        </span>
+
+                        <strong>
+                            @(Model.IdcategoriaNavigation?.Nombre ?? "—")
+                        </strong>
+                    </div>
+
+                    <div class="service-details-info">
+                        <span class="service-details-info-label">
+                            ORDEN
+                        </span>
+
+                        <strong>
+                            @Model.Orden
+                        </strong>
+                    </div>
+
+                    <div class="service-details-info">
+                        <span class="service-details-info-label">
+                            ESTADO
+                        </span>
+
+                        <strong class="@(Model.Activo ? "detail-active" : "detail-inactive")">
+                            @(Model.Activo ? "Activo" : "Inactivo")
+                        </strong>
+                    </div>
+
+                    <div class="service-details-info">
+                        <span class="service-details-info-label">
+                            REGISTRADO
+                        </span>
+
+                        <strong>
+                            @Model.FechaRegistro.ToString("dd/MM/yyyy")
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                @if (!string.IsNullOrWhiteSpace(Model.Slug))
+                {
+                    <div class="service-details-slug">
+                        <span>SLUG</span>
+                        <code>@Model.Slug</code>
+                    </div>
+                }
+
+
+                @* @if (User.IsInRole("Administrador"))
+                { *@
+                    <div class="service-details-actions">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn-primary">
+                            Editar servicio
+                            <span class="arrow">→</span>
+                        </a>
+
+                        <a asp-action="Index"
+                           class="service-details-secondary">
+                            Volver
+                        </a>
+
+                    </div>
+                @* } *@
+
+            </div>
+
         </div>
+
     </div>
-</div>
+
+</section>
